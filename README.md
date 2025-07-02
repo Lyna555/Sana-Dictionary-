@@ -15,9 +15,12 @@
 
 ## 📷 Screenshots
 
-![5994853062302354382](https://github.com/user-attachments/assets/70eaec07-b3da-4f79-838a-181563cb270f)
-![5994853062302354383](https://github.com/user-attachments/assets/2bd0d8e0-2dd0-4df5-ab6d-80f75a179364)
-![5994853062302354381](https://github.com/user-attachments/assets/fe494532-3a6d-4dfb-b782-3095bde925c1)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/70eaec07-b3da-4f79-838a-181563cb270f" width="300"/>
+  <img src="https://github.com/user-attachments/assets/2bd0d8e0-2dd0-4df5-ab6d-80f75a179364" width="300"/>
+  <img src="https://github.com/user-attachments/assets/fe494532-3a6d-4dfb-b782-3095bde925c1" width="300"/>
+</p>
+
 
 
 ---

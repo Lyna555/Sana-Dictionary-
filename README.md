@@ -6,21 +6,16 @@
 
 ## ✨ Features
 
-- 📝 Display a list of educational texts with information like title, author, level, and field.
+- 📝 Display a list of arabic books texts.
 - 🔍 Search functionality for both texts and words.
 - 📖 View the list of words associated with each text along with their explanation and usage.
 - 🌗 Toggle between **light and dark** mode.
-- 📶 Check for internet connection and notify the user if offline.
-- ☰ Sidebar drawer with:
-    - Text list navigation.
-    - About section.
-    - Theme toggle switch.
 
 ---
 
 ## 📷 Screenshots
 
-> Add screenshots of your app here after running it on an emulator or real device.
+
 
 ---
 
@@ -35,7 +30,7 @@
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/sana_dictionary.git
+git clone https://github.com/lyna555/sana_dictionary.git
 cd sana_dictionary
 flutter pub get
 flutter run

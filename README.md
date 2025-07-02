@@ -1,16 +1,41 @@
-# sana_dictionary
+# 📚 Sana Dictionary (معجم سنا)
 
-A new Flutter project.
+**Sana Dictionary** is an educational Flutter application designed to help high school students understand difficult Arabic words found in literature and language textbooks. It provides a collection of texts and explains hard words along with usage examples.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+- 📝 Display a list of educational texts with information like title, author, level, and field.
+- 🔍 Search functionality for both texts and words.
+- 📖 View the list of words associated with each text along with their explanation and usage.
+- 🌗 Toggle between **light and dark** mode.
+- 📶 Check for internet connection and notify the user if offline.
+- ☰ Sidebar drawer with:
+    - Text list navigation.
+    - About section.
+    - Theme toggle switch.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+---
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📷 Screenshots
+
+> Add screenshots of your app here after running it on an emulator or real device.
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+
+- Flutter SDK **≥ 2.17.0**
+- Dart SDK **≥ 2.17.0**
+- Stable internet connection to fetch data
+
+### Installation
+
+```bash
+git clone https://github.com/yourusername/sana_dictionary.git
+cd sana_dictionary
+flutter pub get
+flutter run

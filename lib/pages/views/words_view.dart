@@ -36,13 +36,20 @@ class _WordsViewState extends State<WordsView> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
           child: TextField(
             controller: _searchController,
+            style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
+              isDense: true,
+              contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               labelText: 'ابحث عن كلمة',
-              prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              labelStyle: const TextStyle(fontSize: 17),
+              prefixIcon: const Icon(Icons.search, size: 20),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             onChanged: filterWords,
           ),

@@ -4,6 +4,7 @@ class SanaText {
   final String? author;
   final int? level;
   final String? field;
+  final String? photoURL;
   final String? createdAt;
   final String? updatedAt;
 
@@ -13,6 +14,7 @@ class SanaText {
       required this.author,
       required this.level,
       required this.field,
+      required this.photoURL,
       required this.createdAt,
       required this.updatedAt});
 
@@ -23,6 +25,7 @@ class SanaText {
         author: json['author'],
         level: json['level'],
         field: json['field'],
+        photoURL: json['photo_url'],
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt']);
   }

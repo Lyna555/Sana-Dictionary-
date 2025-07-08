@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/text_model.dart';
 
 class TextService {
-  static const String baseUrl = 'http://192.168.1.4:3000/sana';
+  static const String baseUrl = 'https://sana-dictionary-api.onrender.com/sana';
 
   static Future<List<SanaText>> getAllTexts() async {
     final response = await http.get(Uri.parse('$baseUrl/levels/1/fields/lettres/texts'));

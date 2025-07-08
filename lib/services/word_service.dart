@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/word_model.dart';
 
 class WordService {
-  static const String baseUrl = 'http://192.168.1.4:3000/sana';
+  static const String baseUrl = 'https://sana-dictionary-api.onrender.com/sana';
 
   static Future<List<SanaWord>> getTextWords(int textId) async {
     final response = await http.get(

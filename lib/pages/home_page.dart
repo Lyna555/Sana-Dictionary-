@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../models/text_model.dart';
 import '../../models/word_model.dart';
 import '../../services/text_service.dart';
@@ -25,14 +27,24 @@ class _HomePageState extends State<HomePage> {
   List<SanaText> allTexts = [];
   List<SanaWord> allWords = [];
 
+  bool _hasInternet = true;
+
   @override
   void initState() {
     super.initState();
+    _checkConnectivity();
     _textsFuture = TextService.getAllTexts();
     _textsFuture.then((texts) {
       setState(() {
         allTexts = texts;
       });
+    });
+  }
+
+  Future<void> _checkConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    setState(() {
+      _hasInternet = connectivityResult != ConnectivityResult.none;
     });
   }
 
@@ -135,40 +147,100 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: _buildDrawer(context),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+    return WillPopScope(
+      onWillPop: () async {
+        if (selectedTextId != null) {
+          goBackToTexts();
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+        drawer: _buildDrawer(context),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, size: 30),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
+          title: Text(selectedTextTitle ?? 'معجم سنا'),
+          centerTitle: true,
+          backgroundColor: const Color.fromRGBO(93, 151, 144, 1.0),
+          actions: selectedTextId != null
+              ? [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                    onPressed: goBackToTexts,
+                  ),
+                ]
+              : [
+                  IconButton(
+                    icon: const Icon(Icons.share),
+                    onPressed: () {
+                      Share.share(
+                          'https://play.google.com/store/apps/details?id=dev.voksu.hizo');
+                    },
+                  ),
+                ],
         ),
-        title: Text(selectedTextTitle ?? 'معجم سنا'),
-        centerTitle: true,
-        backgroundColor: const Color.fromRGBO(93, 151, 144, 1.0),
-        actions: selectedTextId != null
-            ? [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new),
-                  onPressed: goBackToTexts,
-                ),
-              ]
-            : null,
+        body: selectedTextId == null ? buildTextList() : buildWordsList(),
       ),
-      body: selectedTextId == null ? buildTextList() : buildWordsList(),
     );
   }
 
   Widget buildTextList() {
+    if (!_hasInternet) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/no-internet.png',
+              width: 180,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'يرجى التحقق من اتصالك بالإنترنت',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return FutureBuilder<List<SanaText>>(
       future: _textsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(child: Text('خطأ: ${snapshot.error}'));
+          print(snapshot.error);
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/internal-error.png',
+                  width: 180,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'خلل في النظام!\nيرجى إعادة المحاولة لاحقا',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(child: Text('لا توجد نصوص'));
         }
@@ -182,6 +254,29 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildWordsList() {
+    if (!_hasInternet) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/no-internet.png',
+              width: 180,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'يرجى التحقق من اتصالك بالإنترنت',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return FutureBuilder<List<SanaWord>>(
       future: _wordsFuture,
       builder: (context, snapshot) {
